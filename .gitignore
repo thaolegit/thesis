@@ -1,0 +1,14 @@
+
+
+images/
+.DS_Store
+*.aux
+*.bcf
+*.lof
+*.toc
+*.lot
+*.blg
+*.run.xml
+*.synctex.gz
+*.log
+*.bbl
