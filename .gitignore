@@ -12,3 +12,4 @@ images/
 *.synctex.gz
 *.log
 *.bbl
+*.out
