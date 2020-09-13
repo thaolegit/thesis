@@ -4,15 +4,17 @@
 \usepackage{csquotes}
 \usepackage[style=apa,doi=false,isbn=false,url=true,eprint=false]{biblatex}
 \usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
 
 %\usepackage{apacite}
 
-\addbibresource{thesis.bib}
+\addbibresource{refs.bib}
 
 \begin{document}
 \DeclareGraphicsExtensions{.pdf,.png,.gif,.jpg}
 
-\title{Protein Design\\ in \\ AR iOS Application}
+\title{Protein Visualisation and Design\\ in \\ AR iOS Application}
 \author{Thao Phuong Le}
 \principaladviser{Sabin Tabirca}
 
@@ -31,6 +33,15 @@ Dummy text
 \afterpreface
 
 \include{chapters/introduction}
+\include{chapters/litRev}
+\include{chapters/methodology}
+\include{chapters/problems}
+\include{chapters/design}
+\include{chapters/implementation}
+%\include{chapters/evaluation}
+%\include{chapters/conclusion}
+
+
 
 
 \printbibliography

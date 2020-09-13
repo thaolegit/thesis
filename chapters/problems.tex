@@ -1,0 +1,48 @@
+\chapter{Analysis: Thesis Problems and Solving}
+\label{ch:analysis2}
+
+\section{Main problems of the project}
+ProteinAR is an iOS application to visualise the three-dimensional (3D) structure of protein. The project was set with two main goals:
+
+(1) Provide \textbf{educational experience} for users: download and visualise in real time protein structure with data from RCSB PDB, using the user-typed input protein name. As mentioned in chapter 2, there are a few existing apps on visualising protein on AR. However, these apps need to scan a code/ an image to display the protein which lead to the limitation in displaying the protein as the protein needed to be prepared in some form already (QR codes, images). The apps that allow direct protein structure viewing in 3D by entering proteins names also are available but not in AR. 
+Thus, the \emph{first main problem} to solve is to make it possible for the app to connect to RCBS PDB server, download the protein model, and display it on AR after the user type in the name of the protein. 
+
+(2) Provide \textbf{entertaining experience} for users: user can put together the polypeptide chains (coils, helix, sheet) to create new protein. As the existing apps on protein visualization are more focused on just displaying the protein, this project is set to bring some entertaining element by adding the mini-game function in which users can create new proteins. 
+The \emph{second main problem} to solve is to enable users to create new proteins from the combination of coils, helices, and sheets. 
+
+\section{Functional requirements to solve problems}
+\subsection{Visualising Protein from RCSB PDB server}
+There are a few problems that needed to be solved in order to visualise the proteins. 
+Firstly, the app needs to be able to send request to the RCSB PDB server. Secondly, the app needs to be able to download the files from the server. Then, the app needs to be able to track the downloaded files’ location. Finally, the app should be able to pull the files out and display them as an AR layer on the screen. 
+	\subsubsection{Send request and download the files}
+As mentioned, the app needs to be able to send information (user input) to the server and get the files back. Based on this thinking, the first try was to use the \emph{Post} and \emph{Get} method. This can be achieved by using HTTP Request in Swift. 
+
+HTTP POST Request allows the app to post information onto the destination URL where the specified embedded method is “POST”. The way this can be achieved is firstly, to go on to the website that needed to be post on, inspect its element to find the action method as well as the parameters needed to be used in this method. 
+
+Similarly, HTTP GET Request allows the app to get information from the destination URL where the method is specified as “GET”. The approach is the same with POST, usually the parameters can be found by inspecting the source code of the website, most of the times under “form action”.
+To test out the function, href{https://web.expasy.org/protparam/}{ProtParam} was a good start as the website only consists of string type data. The URL for both POST and GET are the same and the methods are in the form action, which was no trouble to find. 
+
+However, since there is no PDB files on ProtParam, RCSB PDB has to be the data source. On RCSB PDB, the methods of POST and GET do not exist in the form function. The PDB files are directly downloaded by a separate URL in which only the only changing part (parameter) is the name of the protein. Understanding this, ProteinAR uses URLSesssion and downloadTask(). URLSession makes network transfers easy and downloadTask() fetches the contents of a specified URL, saves it to a local file and calls a completion handle. The URLSession tracks the storing place of the download task while it happens. This will be explained more with codes in \autoref{chap:implementation}
+	\subsubsection{Display the file}
+ 	\subsubsection{Interactive gestures with the models}
+To be interactive, the apps need to enable gesture.
+
+\subsection{Create new proteins from combination}
+\subsubsection{Add polypeptide chains to screen}
+The app needs to be able to display individual polypeptide chain when the user clicks the buttons. There are four types of polypeptide chains to be added: Flex Coil, Rig Coil, Helix, and Sheet. Each polypeptide chain is input into the project as a \emph{.dae} model. In order for these models to be loaded on ARKit, it must be converted into \emph{.scn} files. Each model consists of different nodes: the model, lighting, camera, etc. By using the pre-defined function of SCNScene, the 3D models can be loaded into the AR view. By passing on the name of each models as a parameter, only one function of adding is needed to add four polypeptide chains using four different buttons. 
+
+All of the models are loaded on screen at the same location as if the location is not specified, the models might go off-screen. However, this caused a problem because if the same model is added twice, they will lay on top of each other, causing misunderstanding for the users as they can only see one model on screen. To solve this problem, the app randomises the orientations of the models every time a new model is added to screen by using the pre-defined function of \emph{eulerAngles} to specify the \emph{SCNVector3} with random x, y, and z.
+
+\subsubsection{Combining polypeptide chains}
+After adding individual polypeptide chains on screen, ProteinAR must be able to combine these chains into proteins. The combinations might be successful and might not be. For this to happen, successful combinations of these chains are pre-loaded into the apps in a “Combinations” folder. 
+In the code, an empty string array for protein name is created. Every time user adds a polypeptide chain to the screen, the name of the protein is added using \emph{append} to the array. After user clicking the “Try” button to combine the polypeptide chains, the names in the array are joined using the \emph{array.joined()} function. The models’ name in the “Combinations” folder have a naming convention so that when the array are joined, the name it generated matches with the name of the models in the “Combinations” folder. See more \autoref{chap:implementation} for further understanding. 
+\section{Non-functional requirements}
+\subsubsection{Core Data}
+\subsubsection{Constraint}
+Although it is not mandatory; the app should be able to run on different iOS devices without problem. As the screen size of different iOS devices are different, if the app was designed on the view of iPhone 11 but run on iPhone 6, the buttons might be off screen or other elements might move around, making it impossible to navigate through the app. This is the reason why constraints are important in developing an iOS app. ProteinAR do not have too many elements on the screen at the same time, however, the \emph{Auto Layout} was chosen as the solution for the constraints. Using \emph{Auto Layout}, every new view that is a layer on top of a view are made into a \emph{childView} attaching to the \emph{parentView} which makes it easy for the anchor to be pinched to the \emph{parentView}. \emph{NSLayoutConstraint} was used to keep the elements in place. 
+\subsubsection{Protein Combination Models Database}
+As mention above, the combinations of polypeptide chains are kept in a “Combination” folder and has a naming convention that makes it easy for addressing the model. 
+
+
+ 
+
