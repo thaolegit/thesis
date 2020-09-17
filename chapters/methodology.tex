@@ -29,13 +29,14 @@ The technology to develop Augmented Reality was ready for mobile devices, howeve
 Apple has been acquiring many AR companies, thus, the ARKit is built on all of these acquisitions. One of the major ones was the German company Metaio, which IKEA initially used to let customers display IKEA furnitures in their own home. Ferrari also used Metaio’s technology to allow customer changing colours of cars in showroom, and looking at car’s internal features. In 2017, Apple acquired SensoMotoric Instrument, a company specialized in eye tracking technology to use in AR. Other companies that specialized in other parts of AR technology are being acquired by Apples throughout the year. By doing this, the features of ARKit on iOS devices are frequently newly added and updated. ARKit is continuing to grow, making the creating of AR apps easier than ever (Wang, 2018)
 
 \subsection{Basic understanding of the ARKit}
-There are three layers that works simultaneously in ARKit (To, n.d). 
+There are three layers that works simultaneously in ARKit (To, n.d) as shown in Figure \ref{fig:3Layers}.
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[width=\textwidth]{images/3Layers.jpeg}
 	\caption{Three Layers to ARKit}
-	\label{3Layers}
+	\label{fig:3Layers}
 \end{figure}
+
 \textbf{Tracking} is the key function of ARKit. Without ARKit, it would be very complex for developers to write algorithm to track a device’s position, location and orientation in the real world.
 \textbf{Scene Understanding} is the layer that allows ARKit to analyse the environment presented by the camera’s view to adjust and provide information in order to put place a virtual object on it. 
 \textbf{Rendering} is the process where ARKIt handles the 3D models to put them in a scene such as SceneKit, Metal, RealityKit.
