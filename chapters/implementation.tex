@@ -2,8 +2,34 @@
 \label{ch:implementation}
 
 \section{Download and Visualise Protein Models}
+Because of its complexity, the process to download and visualise protein models will be explained in five steps.
 \subsection{Step 1. Set up Core Data}
+First, Core Data is set up by adding a new \emph{Data model} from the \emph{Core Data} section. It is important to add-on the \emph{App delegate} if \emph{Core Data} was added in later in the project because Xcode will not automatically generate those delegate and the database will not be set up. In this app, the database has only one entity with the name of \emph{Protein} which has two \emph{attributes} of \emph{name} and \emph{location}, defined in type \emph{String} as in Figure \ref{fig:datamodel}. After that, \emph{NSManagedObjectSubclass} were created where Protein is defined as a public class in \emph{NSManagedObject} and so as function\emph{fetchRequest}.  In these subclass, the attributes of \emph{name} and \emph{location} are also declared as public variables (refer to Figure \emph{fig: subclass}
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/datamodel.png}
+	\caption{Core Data Entity and attributes}
+	\label{fig:datamodel}
+\end{figure}
+
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/subclass.png}
+	\caption{NSManagedObject subclass}
+	\label{fig:subclass}
+\end{figure}
+
 \subsection{Step 2. Download from RCSB PDB using downloadTask()}
+\emph{Download} is the main function and since it is a long one, the code snippet will shows parts of the code with modification for easy explanation. The full function code can be found in Appendix A or in the attached source code folder. 
+
+In the code shown in Figure \ref{fig:download1}, the URL to the source file is created. After observing how files are downloaded from RCSB, a pattern was found as instead of using the \emph{GET} method in \emph{action form}, RCSB allows downloading the pdb files directly from an URL. This URL has the structure with the \emph{domain} exactly the same with all the pdb files. The only difference is the file name, which is the protein's name. With this logic, the URL to the source file was constructed using the parameter as the user input text. 
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/download1.png}
+	\caption{Download function part 1}
+	\label{fig:download1}
+\end{figure}
+
 \subsection{Step 3. Assign attributes to Core Data}
 \subsection{Step 4. Fetch and Display Data string on Table View}
 \subsection{Step 5. Visualising PDB files using API}

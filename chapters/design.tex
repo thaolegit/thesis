@@ -75,12 +75,18 @@ Since this is more of a demo-app, the options only directly open link to the RCS
 This is one of the critical functions of the project. It requires the app to be able to download the PDB files, save it and then display it on the screen. 
 In order to achieve the download function, there were many trial-and-error-methods as mentioned in the previous section of using the \emph{HTTP Request POST} and \emph{HTTP Request GET} method. In the process of making the task possible, Alamofire was also considered an option. Alamofire is a Swift-based HTTP networking libray for iOS which simplifies a number of common networking tasks. However, after a few tries, the conclusion was that it was not necessary since the main task of the function is just to download a PDB file. This can be achieved using \emph{URLSession} with \emph{downloadTask()}. The downloaded destination is pre-defined to the internal \emph{Document Directory}. 
 To save the downloaded file’s information to CoreData, firstly, a CoreData model was created with an \emph{Entity} Protein. This \emph{entity} has two attributes of \emph{name} and \emph{location}. Both of these attributes’ type are \emph{String}. If the download process is successful (the file exists, the connection was stable, etc.), at the same time of downloading, a new \emph{NSObject} is created with the two attributes. These will be saved as an \emph{Entity} in the CoreData database. 
-\emph{NSFetchRequestResult} is used to fetch the data in CoreData database to display onto the screen.   
+\emph{NSFetchRequestResult} is used to fetch the data in CoreData database back to the app. This process is visualise in Figure \ref{fig:coredata}.
 
+\begin{figure}[!htp]
+	\centering
+	\includegraphics[scale=0.7]{images/CoreData.png}
+	\caption{Process of Downloading, Saving and Displaying downloaded protein Model}
+	\label{fig:coredata}
+\end{figure}
 
 
 \subsection{Solution for visualisation of protein models from pDB files}
-
+As mentioned, in order to visualise protein models from downloaded pDB files, a converter to convert file type \emph{.pdb} to file type \emph{.dae} must be made. The ideal design is as shown in Figure \ref{fig:coredata}. UCSF Chimera was used in the process of converting, however, it is only compatible with MacOS, not iOS. This is the missing solution from the project. 
 
 \subsection{Solution for combining polypeptide chains into a protein}
 As mentioned in the previous section, each polypeptide chain is designed to be referred to as a value in an array. Every time user press on a polypeptide chain’s button, that model of protein is displayed, at the same time, that model’s name is added as a value in the array. After these actions, if the \emph{Clear} button is pressed, not only the models on the screen is deleted but also the values in the array are emptied. On the other hand, if \emph{Try} is pressed, all the values in the array will combined into a new name. First, the screen will be cleared and then the new name protein model will be displayed. Together with this, a text of “Congratulations, you have created a new protein made of …” will also be displayed if the combination is valid. If the combination is not valid, no models will be displayed. The errors will be caught and, on the console, “This model does not exist” will be printed. As for user’s side, a 3D text of “Sorry, this combination cannot be made” will appear on screen. The simplification of the design can be found in Figure \ref{fig:array}.

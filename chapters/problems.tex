@@ -4,11 +4,11 @@
 \section{Main problems of the project}
 ProteinAR is an iOS application to visualise the three-dimensional (3D) structure of protein. The project was set with three main goals:
 
-(1) Provide an \textbf{educational experience} for users: download and visualise in real time protein structure with data from RCSB PDB, using the user-typed input protein name. As mentioned in chapter 2, there are a few existing apps on visualising protein on AR. However, these apps need to scan a code/ an image to display the protein which lead to the limitation in displaying the protein as the protein needed to be prepared in some form already (QR codes, images). The apps that allow direct protein structure viewing in 3D by entering proteins names also are available but not in AR. 
+(1) Provide an \textbf{educational experience} for users: download and visualise in real time protein structure with data from RCSB PDB, using the user-typed input protein name. As mentioned in chapter \ref{ch:litRev}, there are a few existing apps on visualising protein on AR. However, these apps need to scan a code/ an image to display the protein which lead to the limitation in displaying the protein as the protein needed to be prepared in some form already (QR codes, images). The apps that allow direct protein structure viewing in 3D by entering proteins names also are available but not in AR. 
 Thus, the \emph{first main problem} to solve is to make it possible for the app to connect to RCBS PDB server, download the protein model, and display it on AR after the user type in the name of the protein. 
 
-(2) Provide an \textbf{entertaining experience} for users: user can put together the polypeptide chains (coils, helix, sheet) to create new protein. As the existing apps on protein visualization are more focused on just displaying the protein, this project is set to bring some entertaining element by adding the mini-game function in which users can create new proteins. 
-The \emph{second main problem} to solve is to enable users to create new proteins from the combination of coils, helices, and sheets. 
+(2) Provide an \textbf{entertaining experience} for users: user can put together the polypeptide chains (coils, helix, sheet) to create new protein. As the existing apps on protein visualisation are more focused on just displaying the protein, this project is set to bring some entertaining element by adding the mini-game function in which users can create new proteins. 
+The \emph{second main problem} to solve is to enable users to create new proteins from the combination of coils, helices, and sheets. For this project, because of the biological complexity of the quaternary structure protein, the new protein created will be in tertiary form. 
 
 (3) Provide an \textbf{interactive experience} for users: user can interact with the protein models or the polypeptide chains that are displayed on the screen by touching them to scale the models, to move the models around and to rotate the models. The findings from chapter \ref{ch:litRev} shows that little effort has been put in interactive elements of the existing products. The main function of the products are mainly just to show the protein. 
 
@@ -24,7 +24,16 @@ Similarly, \emph{HTTP GET Request }allows the app to get information from the de
 
 To test out the function, href{https://web.expasy.org/protparam/}{ProtParam} was a good start as the website only consists of string type data. The URL for both \emph{POST} and \emph{GET} are the same and the methods are in the form action, which was no trouble to find. 
 However, since there is no PDB files on ProtParam, RCSB PDB has to be the data source. On RCSB PDB, the methods of \emph{POST} and \emph{GET} do not exist in the form function. The PDB files are directly downloaded by a separate URL in which only the only changing part (parameter) is the name of the protein. Understanding this, ProteinAR uses \emph{URLSesssion} and \emph{downloadTask()}. \emph{URLSession} makes network transfers easy and \emph{downloadTask()} fetches the contents of a specified URL, saves it to a local file and calls a completion handle. The \emph{URLSession} tracks the storing place of the download task while it happens. This will be explained more with codes in \autoref{ch:implementation}
+	
 	\subsubsection{Display the file}
+When the 	files are downloaded, they are saved in the \emph{.pdb} format. In Swift, when a file is downloaded, it is downloaded to a temporary location, and then can be moved to the \emph{Document Directory}. ProteinAR specifies the format of the download by saving it as "name of the protein".pdb. 
+The solution to display the \emph{.pdb} file in visualisation is to convert it to \emph{.dae} files and then load it on the \emph{SCN}Scene as a scene. 
+In order to load the file, one solution is to use move all downloaded items into the project folder using \emph{moveItem}. However, this will make the app heavy because the data will be kept there and had to be loaded every time the app runs. Therefore, the solution that this project uses is to make use of 
+\emph{Core Data}. Each time a file is save into the \emph{Document Directory} it is also saved as an attribute of the \emph{Protein Entity} that was pre-defined in \emph{Core Data}. Each entity will have a value of \emph{name} and \emph{location}.
+For loading the file, there needs to be a converter which convert the downloaded \emph{.pdb} file to \emph{.dae} file. This converter will automatically convert any downloaded \emph{.pdb} file in the \emph{Document Directory} into \emph{.dae} so that it can be loaded as a \emph{SCNScene} in the app. 
+Unfortunately, due to the limitation of time, the converter could not be made and thus, this remain the one problem that had not been solved in this project. 
+For a smooth demonstration of how the ideal product should turn out, a sample folder of a few pre-downloaded models is imported.
+
  	
 \subsection{Entertaining purpose: Create new proteins from combination}
 \subsubsection{Add polypeptide chains to screen}
