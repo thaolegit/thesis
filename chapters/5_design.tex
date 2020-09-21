@@ -153,7 +153,7 @@ On the top four buttons, button icons are used instead of button labels. These i
 
 (2) Record and Camera button: Record button accepts two types of actions: long press and tap. Long press generates the action of recording the screen and tap ends it. Long press action also changes the colour of the button to red, which is commonly associate with recording symbol colour. Tap brings it back to its original colour, symbolizes the end of the recording action. As for the camera button, the colour only flashes, implies the act of picture taking has been done. 
 
-As mentioned, the buttons in ProteinAR mainly follows the colour scheme of Pinks-Mauves. However, the four buttons to add polypeptide chains are the exceptions. These four buttons uses images as the buttons and to make it easy for users, they are labelled with their names. The designs of the buttons are taken from Tianshu Xu’s 2019 Master project (Xu, 2019) and the label colours were chosen to be matched with the polypeptides’ colours. Since this is a mini-game, the colorful elements will make it look more appealing to users. 
+As mentioned, the buttons in ProteinAR mainly follows the colour scheme of Pinks-Mauves. However, the four buttons to add polypeptide chains are the exceptions. These four buttons uses images as the buttons and to make it easy for users, they are labelled with their names. The designs of the buttons are   inherrited from Tianshu Xu’s 2019 Master project \parencite{xu_interactive_2019} and the label colours were chosen to be matched with the polypeptides’ colours. Since this is a mini-game, the colourful elements will make it look more appealing to users. 
 \begin{figure}[hbt!]
 	\centering
 	\includegraphics[scale=0.7]{images/polybuttons.png}
@@ -162,7 +162,8 @@ As mentioned, the buttons in ProteinAR mainly follows the colour scheme of Pinks
 \end{figure}
 
 \section{Core Data Design}
-
+In ProteinAR, Core Data is designed with only two \emph{Entity} of \emph{name} and \emph{location}. Core Data only stores the information of the location path, which is in the \emph{Document Directory}, not the file itself. When the data is called, information stores in the attribute \emph{location} of Core Data simply acts as a \emph{String} value to concatenate with the file's name and extension to fetch the file that are stored in the \emph{Document Directory}. 
+With this current functions of ProteinAR, implementing Core Data is not necessary as document path can be directly called into the displaying function. The reason Core Data was used is for future work, when more information of a Protein (protein parameters) needed to be stored. 
 
 
 

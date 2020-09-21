@@ -5,12 +5,12 @@
 ProteinAR is an iOS application to visualise the three-dimensional (3D) structure of protein. The project was set with three main goals:
 
 (1) Provide an \textbf{educational experience} for users: download and visualise in real time protein structure with data from RCSB PDB, using the user-typed input protein name. As mentioned in chapter \ref{ch:litRev}, there are a few existing apps on visualising protein on AR. However, these apps need to scan a code/ an image to display the protein which lead to the limitation in displaying the protein as the protein needed to be prepared in some form already (QR codes, images). The apps that allow direct protein structure viewing in 3D by entering proteins names also are available but not in AR. 
-Thus, the \emph{first main problem} to solve is to make it possible for the app to connect to RCBS PDB server, download the protein model, and display it on AR after the user type in the name of the protein. 
+Thus, the \emph{\underline{first main problem}} to solve is to make it possible for the app to connect to RCBS PDB server, download the protein model, and display it on AR after the user type in the name of the protein. 
 
 (2) Provide an \textbf{entertaining experience} for users: user can put together the polypeptide chains (coils, helix, sheet) to create new protein. As the existing apps on protein visualisation are more focused on just displaying the protein, this project is set to bring some entertaining element by adding the mini-game function in which users can create new proteins. 
-The \emph{second main problem} to solve is to enable users to create new proteins from the combination of coils, helices, and sheets. For this project, because of the biological complexity of the quaternary structure protein, the new protein created will be in tertiary form. 
+The \emph{\underline{second main problem}} to solve is to enable users to create new proteins from the combination of coils, helices, and sheets. For this project, because of the biological complexity of the quaternary structure protein, the new protein created will be in tertiary form. 
 
-(3) Provide an \textbf{interactive experience} for users: user can interact with the protein models or the polypeptide chains that are displayed on the screen by touching them to scale the models, to move the models around and to rotate the models. The findings from chapter \ref{ch:litRev} shows that little effort has been put in interactive elements of the existing products. The main function of the products are mainly just to show the protein. 
+(3) Provide an \textbf{interactive experience} for users: user can interact with the protein models or the polypeptide chains that are displayed on the screen by touching them to scale the models, to move the models around and to rotate the models. The findings from chapter \ref{ch:litRev} shows that little effort has been put in interactive elements of the existing products. The main function of the products are mainly just to show the protein. Therefore, the  \emph{\underline{third main problem}} to be solved is to enable interacting with the 3D models in AR.
 
 \section{Functional requirements to solve problems}
 \subsection{Educational purpose: Visualising Protein from RCSB PDB server}
@@ -22,11 +22,11 @@ As mentioned, the app needs to be able to send information (user input) to the s
 
 Similarly, \emph{HTTP GET Request }allows the app to get information from the destination URL where the method is specified as \emph{GET}. The approach is the same with \emph{POST}, usually the parameters can be found by inspecting the source code of the website, most of the times under \emph{form action}.
 
-To test out the function, href{https://web.expasy.org/protparam/}{ProtParam} was a good start as the website only consists of string type data. The URL for both \emph{POST} and \emph{GET} are the same and the methods are in the form action, which was no trouble to find. 
+To test out the function, \href{https://web.expasy.org/protparam/}{ProtParam} was a good start as the website only consists of string type data. The URL for both \emph{POST} and \emph{GET} are the same and the methods are in the form action, which was no trouble to find. 
 However, since there is no PDB files on ProtParam, RCSB PDB has to be the data source. On RCSB PDB, the methods of \emph{POST} and \emph{GET} do not exist in the form function. The PDB files are directly downloaded by a separate URL in which only the only changing part (parameter) is the name of the protein. Understanding this, ProteinAR uses \emph{URLSesssion} and \emph{downloadTask()}. \emph{URLSession} makes network transfers easy and \emph{downloadTask()} fetches the contents of a specified URL, saves it to a local file and calls a completion handle. The \emph{URLSession} tracks the storing place of the download task while it happens. This will be explained more with codes in \autoref{ch:implementation}
 	
 	\subsubsection{Display the file}
-When the 	files are downloaded, they are saved in the \emph{.pdb} format. In Swift, when a file is downloaded, it is downloaded to a temporary location, and then can be moved to the \emph{Document Directory}. ProteinAR specifies the format of the download by saving it as "name of the protein".pdb. 
+When the 	files are downloaded, they are saved in the \emph{.pdb} format. In Swift, when a file is downloaded, it is downloaded to a temporary location, and then can be moved to the \emph{Document Directory}. ProteinAR specifies the format of the download by saving it as ``name of the protein.pdb". 
 The solution to display the \emph{.pdb} file in visualisation is to convert it to \emph{.dae} files and then load it on the \emph{SCN}Scene as a scene. 
 In order to load the file, one solution is to use move all downloaded items into the project folder using \emph{moveItem}. However, this will make the app heavy because the data will be kept there and had to be loaded every time the app runs. Therefore, the solution that this project uses is to make use of 
 \emph{Core Data}. Each time a file is save into the \emph{Document Directory} it is also saved as an attribute of the \emph{Protein Entity} that was pre-defined in \emph{Core Data}. Each entity will have a value of \emph{name} and \emph{location}.
@@ -58,11 +58,11 @@ After the polypeptide chains or the protein models are loaded onto the screen, u
 UI Gesture & Gesture Description & Function in the app \\
 \hline
 \hline
-Pinch Gesture & “A two-fingers gesture that moves the two fingertips closer or farther apart” (Wang, 2018). & Allows users to scale (zoom in, zoom out) on the models. \\
+Pinch Gesture & “A two-fingers gesture that moves the two fingertips closer or farther apart” \parencite{wang_beginning_2018}. & Allows users to scale (zoom in, zoom out) on the models. \\
 \hline
-Rotation Gesture & “A two-fingers gesture that moves the two fingertips in a circular motion” (Wang, 2018). & Allows users to rotate the models in any angle. \\
+Rotation Gesture & “A two-fingers gesture that moves the two fingertips in a circular motion” \parencite{wang_beginning_2018}. & Allows users to rotate the models in any angle. \\
 \hline
-Pan Gesture & “Press a finger on the screen and then slide it across the screen” (Wang, 2018). & Allows users to move the models on the screen. \\
+Pan Gesture & “Press a finger on the screen and then slide it across the screen” \parencite{wang_beginning_2018}. & Allows users to move the models on the screen. \\
 \hline
 \end{tabularx}
 \caption {Interacting Gestures in ProteinAR}
