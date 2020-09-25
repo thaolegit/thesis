@@ -1,0 +1,225 @@
+\chapter{Project Testing and Evaluation}
+\label{ch:evaluation}
+
+\section{Function Testing}
+\subsection{Education Screen (Figure \ref{fig:eduscreen})}
+When the protein's name is inputted, the model of the protein is displayed.
+In Figure \ref{fig:eduscreen} on the left, the protein 6K01 is displayed on the AR screen because 6K01 is a valid protein's ID and on the right, when the protein is not valid, the screen shows only 3D text informing the protein does not exist.
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[scale=0.6]{images/eduscreen.png}
+	\caption{Education App Screen}
+	\label{fig:eduscreen}
+\end{figure}
+
+\subsection{Mini-game screen (Figure \ref{fig:minigamescreen1}, \ref{fig:minigamescreen2})}
+On the Mini-game screen, when polypeptide chain button is pressed, the model of that chain will be displayed. Similarly, when another polypeptide chain button is pressed, the second model appears on top of the first one as shown in Figure \ref{fig:minigamescreen1}. If the combination exits, it will be displayed with text showing the names of its elements. If the combination does not exist, only text will appear as shown in Figure \ref{fig:minigamescreen2}.
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/minigamescreen1.png}
+	\caption{Mini-game App Screen (1)}
+	\label{fig:minigamescreen1}
+\end{figure}
+
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[scale=0.6]{images/minigamescreen2.png}
+	\caption{Mini-game App Screen (2)}
+	\label{fig:minigamescreen2}
+\end{figure}
+
+\section{Unit Testing}
+By running the app, only functions that can be displayed on the screen can be tested. Functions to download the PDB files was not tested. Therefore, in the project, a unit test was built to test the download function. 
+In Xcode, the XCTest framework is used to write unit tests. XCTest assert that during code execution, certain conditions are satisfied and if not, the errors messages will be shown together with the test failure result. 
+The full code snippet for the unit test can be found in Appendix A. In Figure \ref{fig:testdownload}, the main part of the code for the unit test is shown. In this test function, the URL is given with a valid protein's ID (6K03) and the code checks if the files 6K03.pdb exists in the \emph{Document directory} after the download function ran. The green tick on the function shows that the tested function (download) works. 
+
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/testdownload.png}
+	\caption{Unit Test - Download function}
+	\label{fig:testdownload}
+\end{figure}
+
+\section{Application Performance Testing}
+Since ProteinAR is an iPhone app, evaluating on how the app performs on an iPhone is important. Xcode has a built-in debug navigator to show how the app performing on the device. In this navigator, there are reports to visualise how the application impact the running of the simulator device. 
+Figure \ref{fig:cpu} shows the impact on iPhone's CPU while the app is running. The percentage keeps changing, however, it always run high, from 80 percent to 120 percent. The testing device is iPhone X with six cores, bring the maximum capacity of CPU to 600 percent. Since there are many tasks that the app has to do at the same time: recognising the real world's surfaces, putting layers on, downloading from the web, displaying models, etc., this is considered acceptable. In Figure \ref{fig:cpu}, the percentage used shown to be still in the green zone. 
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/CPU.png}
+	\caption{CPU usage}
+	\label{fig:cpu}
+\end{figure}
+
+As for the memory, the apps does not take much memory usage at the moment. In the future work, when a converter file is made and the app can actually display models from downloaded PDB files, memory usage will still not be a problem because the data will be stored in \emph{Document directory}. A visualisation of memory usage is shown in Figure \ref{fig:memory}.
+
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/memory.png}
+	\caption{Memory usage}
+	\label{fig:memory}
+\end{figure}
+
+An AR app should have an FPS (frame per second) rate of 30 FPS to allow the app to run smoothly and save CPU and GPU usage. In ProteinAR, the FPS rate is relatively high, at 60 FPS. This creates the smooth movements, but also takes up a lot of GPU usage (Figure \ref{fig:FPS}. This might also lead to the extra energy usage, affecting negatively to the energy impact (Figure \ref{fig:energy2}). 
+
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/FPS.png}
+	\caption{GPU Usage}
+	\label{fig:FPS}
+\end{figure}
+
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/energy2.png}
+	\caption{Energy impact}
+	\label{fig:energy2}
+\end{figure}
+
+Through observation, when the app starts running, the energy impact is already stated in the report as ``Very High". The thermal state starts at "Fair" and in only a few minutes changes to "Serious". Sometimes, the thermal state goes up to "Critical" if the app is left running long. 
+This affects negatively to the performing of the app and also drain the device's battery fairy quick. Since the device becomes extremely hot, the models could be loaded but lagging, extra screen (for example: the "Help Screen") would not even show after clicked because the UI elements generate extra heat.
+
+In summary, the performance evaluation could be summed up in table \ref{tab:perEvaluation}.
+
+\begin{table}[!h]
+\centering
+\begin{tabularx}{\textwidth} {
+  | >{\raggedright\arraybackslash}X 
+  | >{\raggedright\arraybackslash}X 
+  | >{\raggedright\arraybackslash}X 
+  | >{\raggedright\arraybackslash}X | }
+\hline
+Performance Category & Device impact & Pro & Con \\
+\hline
+\hline
+CPU/GPU& High & Multi-tasking, smooth transition & Increase energy impact  \\
+\hline
+Memory & Normal & No extra workload on the device & N/A \\
+\hline
+FPS & High & Smooth display of models and AR layers & Increase CPU and GPU usage \\
+\hline
+Energy & Very High & N/A & Freeze the app and Drain battery \\
+\hline
+\end{tabularx}
+\caption {Performance Evaluation}
+\label{tab:perEvaluation}
+\end{table}
+
+To help lower the energy impact, tests and debug needs to be implemented in the future work. 
+
+\section{Application Usability Testing}
+
+Usability evaluation is an important evaluation that any system must take before releasing the product. This helps ensure the app meeting with the requirements of business and secure customer satisfaction. By doing usability testing, the app can be improved based on objective opinions. 
+
+In this project, the usability evaluation is conducted based on the post-testing usability questions with 10 questions in SUS (System Usability Scale) type of questionnaire. This means the questions are asked after the users have experienced using the app. 
+However, the project ran into two problems while conducting the usability testing. 
+
+\begin{itemize}
+\item Limitation of testing subjects: 
+
+For users to remotely download and use the app, ProteinAR has to be available on the App store. After an app is submitted to the App store, it would go through a very strict review process and would not be available for a period of time. This would also require more work to complete the app since an app that still runs into problem would not be able to go through the review. Furthermore, uploading an app on the App store would make it become a commercial product. This might go against the rule of UCC. Thus, it was not possible for other users to remotely test the app. There are two ways for the app to be tested by other users which require in-person meeting:
+	\begin{itemize}
+		\item User directly used the app on developer's device or downloading from the developer's computer. With the on going complications of Covid-19, it is not advisable to meet up with many people, hence, touching the same phone. 
+		\item User can install the app by downloading the project on Github. However, this requires target users to have access to MacOS system and an iPhone 6 or onwards with the compatible MacOS and iOS version.
+
+Since the second way was difficult to be conducted, all the tests were carried out in the first way, which was also made difficult because of Covid-19. Thus, the number of users to conduct the test was limited to five people.
+	\end{itemize}
+\item Lack of objectivity in questionnaire result:
+
+For all of the tests, users and developers were in the same place. This affected the sense of objectivity in the result of the questionnaire, thus, the evaluation result might not be accurate. 
+\end{itemize}
+
+However, the test was still conducted and the questionnaire result is shown in Figure \ref{fig:survey}. Before the test, users are given some protein's name to start with. Since there are not many buttons on the screen, it did not take much time for users to figure out how to navigate around and use the app.The element of using Augmented Reality impressed users as it is new and considered ``exciting" and ``cool", which created a huge impact in making users wanting to play again. However, the app is about protein, which might not be the subject of choice for most users, thus, recommendation to others did not get a good feedback. The entertaining element does not meet up with the users' satisfactions.
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/survey.png}
+	\caption{System Usability Scale (SUS) Questionnaire and Feedbacks}
+	\label{fig:survey}
+\end{figure}
+
+Some observations after user testing: The extra functions linking the app to RCSB website or PDB 101 weren't intentionally chosen. Users found it too much work to have to read through another website. This could be replaced by more simple but educational screens or websites. The AR triggers excitement of using the app, and thus, should be put in more focus such as collision with real world's object. The mini-game would be more interesting if the new protein created can be linked to daily things such as ``found in human skin, found in sheep wool". 
+
+\section{Project Overall Evaluation}
+Base on the testings that were conducted, the project overall evaluation is summarised in table \ref{tab:evaluation}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{| m{0.2\textwidth} | m{0.5\textwidth} | m{0.3\textwidth}|}
+\hline
+Goals & Implementation & Evaluation\\
+\hline
+Download Protein from RCSB PDB & 
+\begin{itemize}
+	\item Download using \emph{downloadTask()} using constructed URL
+	\item Save files to Document directory
+	\item Assign attributes to Core Data
+\end{itemize} &
+Base on the result from Unit Testing, these functions work without errors.
+
+\textbf{Completed}\\
+\hline
+
+Visualise Protein models on AR & 
+\begin{itemize}
+	\item Convert PDB file to Collada files
+	\item Visualise by loading 3D models on AR screen using function \emph{displayProtein} (Figure: \ref{fig:displayreal})
+\end{itemize} &
+\begin{itemize}
+	\item Convert script was not made
+	\item Can load some pre-downloaded sample models
+\end{itemize}	
+
+\textbf{Partially completed} \\
+\hline
+
+Create new Protein on AR & 
+\begin{itemize}
+	\item Display individual polypeptide chains with function \emph{addProtein()} (Figure: \ref{fig:addProteinfunc}
+	\item Display combinations of polypeptide chains according to user input using function \emph{createProtein} (Figure: \ref{fig:createProtein}) 
+\end{itemize} &
+Displaying individual polypeptide chains and clearing them to display the combination create the smooth transition and interactive feelings to users.
+
+\textbf{Completed}\\
+\hline
+
+Interact with Protein models &
+ Use UIGestureRecognizer for 
+ \begin{itemize} 
+	 \item Pinch Gesture (allow zooming in and out) (Figure:\ref{fig:pinch})
+	 \item Rotation Gesture (allow rotating models) (see the Appendix A)
+	 \item Pan Gesture (allow moving models) (see the Appendix A)
+\end{itemize} &
+Base on users testing questionnaire, the UI is appealing 
+
+ \textbf{Completed}\\
+ \hline
+ 
+  Appealing UI &
+ \begin{itemize}
+ 	\item Use two different screens for two purpose (education and mini-game)
+	\item Easy to navigate
+	\item Analogous colour theme
+	\item Interactive elements (buttons, display, model-interactions, create new protein) (Chapter: \ref{ch:design})
+\end{itemize} &
+Base on users testing's questionnaire, the UI is easy to use and appealing.
+
+\textbf{Completed}\\
+\hline
+
+Good performance&
+ \begin{itemize} 
+	 \item CPU Usage: High
+	 \item GPU Usage: High
+	 \item Memory Usage: Normal
+	  \item Energy Impact: Very High
+\end{itemize} &
+The thermal state reaches “serious state” in a short time, which is not ideal for the app. Debugging sections are needed to solve this problem.
+
+\textbf{Partially Completed}\\
+\hline
+\end{tabular}
+\caption{Overall Evaluation}
+\label{tab:evaluation}
+\end{table}
+Although much future work are to be done for the completion of the app, ProteinAR succeeded in creating the first step to bring displaying protein models in AR. Without the need to print out materials, or using extra devices such as VR goggles, ProteinAR can be developed to become an useful tool for biology students and teachers as well as scientists in studying and researching about proteins.
+
+
