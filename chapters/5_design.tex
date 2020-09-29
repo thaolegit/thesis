@@ -1,7 +1,7 @@
 \chapter{Project Design}
 \label{ch:design}
 
-This chapter elaborates the design of ProteinAR by starting with the skeleton of the app, followed by the solutions design for each and every functions. The overall structure of the app is illustrated by an UML diagram. After that, the UI design is explained. A brief description on the design of core data is presented in the end of the chapter.
+This chapter elaborates on the design of ProteinAR by starting with the skeleton of the app, followed by the design of the solutions for each function. The overall structure of the app is illustrated by a UML diagram. After that, the UI design is explained. A brief description of the design of core data is presented at the end of the chapter.
 
 \section{Application Skeleton Design}
 The structure of ProteinAR is fairly simple. It consists of four main screens including the landing screen as shown in Figure \ref{fig:appskeleton}. 
@@ -62,7 +62,7 @@ In this view, the user can create new proteins by combining the coils, helix and
 	\label{fig:uml}
 \end{figure}
 
-Figure \ref{fig:uml} shows the overall structure of the app. In this Figure, the four frames represents the four screens of the app. Different colours are used to indicate different components of the app.
+Figure \ref{fig:uml} shows the overall structure of the app. In this Figure, the four frames represent the four screens of the app. Different colours are used to indicate different components of the app.
 \begin{itemize}
 \item \textbf{Purple} represents the buttons displayed on the app's screen.
 \item \textbf{Yellow} represents user action (swipe, press, tap, long press, type).
@@ -70,7 +70,7 @@ Figure \ref{fig:uml} shows the overall structure of the app. In this Figure, the
 \item \textbf{White} represents the actions that the app executes after a button was pressed or an option was chosen.
 \item \textbf{Pink} represents the destination screen or URL the app opens after a button was pressed or an option was chosen. 
 \end{itemize}
-The app starts from "First View Controller" and depends on the chosen buttons, the suitable "View Controller" will be in display. From any "View Controller", the user can always go back to "First View Controller" by pressing on the "Exit" button. The details of each function design will be elaborate in the following part of this section.
+The app starts from "First View Controller" and depends on the chosen buttons, the suitable "View Controller" will be on display. From any "View Controller", the user can always go back to "First View Controller" by pressing on the "Exit" button. The details of each function design will be elaborated in the following part of this section.
 
 \subsection{Utility buttons}
 The utility buttons are the same on both Education View Controller and Game View Controller. This creates coherency throughout the app. However, the downside is that all functions and buttons have to be duplicated on the two views, causing heavier memory load for the app. 
@@ -96,8 +96,8 @@ To save the downloaded file’s information to CoreData, firstly, a CoreData mod
 \end{figure}
 
 
-\subsection{Visualisation of protein models from pDB files}
-In order to visualise protein models from downloaded pDB files, a converter to convert file type \emph{.pdb} to file type \emph{.dae} must be made. The ideal design is as shown in Figure \ref{fig:coredata}. UCSF Chimera was used in the process of converting, however, it is only compatible with MacOS, not iOS and therefore could not be implemented into the app.
+\subsection{Visualisation of protein models from PDB files}
+In order to visualise protein models from downloaded PDB files, a converter to convert file type \emph{.pdb} to file type \emph{.dae} must be made. The ideal design is as shown in Figure \ref{fig:coredata}. UCSF Chimera was used in the process of converting, however, it is only compatible with MacOS, not iOS and therefore could not be implemented into the app.
 
 \subsection{Combining polypeptide chains into a protein}
 Each polypeptide chain is designed to be referred to as a value in an array. Every time a user presses on a polypeptide chain’s button, that model of protein is displayed, while at the same time, that model’s name is added as a value in the array. After these actions, if the \emph{Clear} button is pressed, not only are the models on the screen deleted but also the values in the array are emptied. On the other hand, if \emph{Try} is pressed, all the values in the array will combined into a new name. First, the screen will be cleared and then the new name protein model will be displayed. Together with this, a text of “Congratulations, you have created a new protein made of …” will also be displayed if the combination is valid. If the combination is invalid, no models will be displayed. The errors will be caught and, on the console, “This model does not exist” will be printed. On the user's end, a 3D text of “Sorry, this combination cannot be made” will appear on screen. The simplification of the design can be found in Figure \ref{fig:array}.
@@ -184,6 +184,8 @@ Figure \ref{fig:datamodel} shows the \emph{Entity} and \emph{attributes} in the 
 
 The details on implementation of Core Data can be found in Figure \ref{fig:displayreal} with explanation in Chapter \ref{ch:implementation}. As explain in Chapter \ref{ch:analysis2}, with the current implementations of ProteinAR, integrating Core Data is unnecessary. Document path can be directly called into the displaying function using \emph{File Manager}. The reason Core Data was used is for future work, when more protein data may need to be stored. 
 
+\section{Summary}
+Based on the proposed solutions, the app was designed to have four screens, with different functions on each to achieve the set goals. The two main screens designed to acquire educational and entertaining purposes are ``Education" screen and ``Mini-game" screen. Each screen has a different set of buttons to execute different required functions. The app was designed to use Core Data as the database to store protein information after they were downloaded. As the existing products have not been focusing on the UI design, ProteinAR took UI design into careful consideration in order to bring a better experience to the user. 
 
 
 
