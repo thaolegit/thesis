@@ -1,8 +1,10 @@
 \chapter{Project Design}
 \label{ch:design}
 
+This chapter elaborates the design of ProteinAR by starting with the skeleton of the app, followed by the solutions design for each and every functions. The overall structure of the app is illustrated by an UML diagram. After that, the UI design is explained. A brief description on the design of core data is presented in the end of the chapter.
+
 \section{Application Skeleton Design}
-The structure of ProteinAR is very simple. It consists of four main screens including the landing screen as shown in Figure \ref{fig:appskeleton}. 
+The structure of ProteinAR is fairly simple. It consists of four main screens including the landing screen as shown in Figure \ref{fig:appskeleton}. 
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[width=\textwidth]{images/appskeleton.png}
@@ -10,7 +12,7 @@ The structure of ProteinAR is very simple. It consists of four main screens incl
 	\label{fig:appskeleton}
 \end{figure}
 
-On the landing view (first view) (Figure \ref{fig:firstview}, there are three buttons, leading to the three other views of the apps. 
+On the landing view (first view) (Figure \ref{fig:firstview}), there are three buttons, leading to the three other views of the apps. 
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[scale=0.6]{images/firstscreenview.png}
@@ -25,7 +27,7 @@ On the landing view (first view) (Figure \ref{fig:firstview}, there are three bu
 	\caption{Introduction View Controller and Page Controller}
 	\label{fig:introviewxib}
 \end{figure}
-Using \emph{Page Control} keeps the coherency for the same contents, at the same time keep less words per screen, makes it more appealing to users. Users can click on the \emph{GET STARTED} button to go back to the first view to start explore the options or simply just drag the screen down and away.
+Using \emph{Page Control} maintains coherency for the same content, while at the same time keep less words per screen, making it more appealing to users. Users can click on the \emph{GET STARTED} button to go back to the first view to explore the options or simply drag the screen down and away.
 
 (2) Tapping on the \emph{Education} will bring users to the Education View Controller as shown in Figure \ref{fig:eduview}.
 \begin{figure}[!htp]
@@ -34,7 +36,7 @@ Using \emph{Page Control} keeps the coherency for the same contents, at the same
 	\caption{Education View Controller}
 	\label{fig:eduview}
 \end{figure}
-The main function on this screen is for user to input the protein’s name and get the pdb file back, thus the design is simple with a \emph{textfield} and a \emph{GET button}. To make the app more appealing, there are four other buttons with four other minor actions on top of the screen. These actions are \emph{Menu, Screen Record, Screen Capture} and \emph{Exit} as shown in Figure \ref{fig:topbuttons}. These functions will be explained in the next section: design solutions.   
+Since the main function on this screen is for the user to input the protein’s name and get the pdb file back,  the design is kept simple with a \emph{textfield} and a \emph{GET button}. To make the app more appealing, there are four more buttons with four more minor actions on top of the screen. These actions are \emph{Menu, Screen Record, Screen Capture} and \emph{Exit} as shown in Figure \ref{fig:topbuttons}. These functions will be explained in section 5.2.   
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[scale=0.8]{images/topbuttons.png}
@@ -42,8 +44,8 @@ The main function on this screen is for user to input the protein’s name and g
 	\label{fig:topbuttons}
 \end{figure}
 
-(3) Tapping on the \emph{Mini-game} will bring up the \emph{Game View Controller} (Figure \ref{fig:gameview}).
-In this view, users can create new protein by combining the coils, helix and sheet in different orders simply by adding each polypeptide onto the screen by tapping on them, and press \emph{Try}. Similar to Education View Controller, the four buttons on top of the screen are kept. 
+(3) Tapping on \emph{Mini-game} will bring up the \emph{Game View Controller} (Figure \ref{fig:gameview}).
+In this view, the user can create new proteins by combining the coils, helix and sheet in different orders simply by adding each polypeptide onto the screen by tapping on them, and then pressing \emph{Try}. Similar to Education View Controller, the four buttons on top of the screen are kept. 
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[scale=0.6]{images/gameview.png}
@@ -53,7 +55,6 @@ In this view, users can create new protein by combining the coils, helix and she
 
 
 \section{Solution Design}
-Figure \ref{fig:uml} shows the whole design of the solution for the app. 
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[width=\textwidth]{images/uml.png}
@@ -61,35 +62,45 @@ Figure \ref{fig:uml} shows the whole design of the solution for the app.
 	\label{fig:uml}
 \end{figure}
 
-\subsection{Solution for top four buttons}
-The top four buttons are the same on both Education View Controller and Game View Controller. This creates the coherency through-out the app. However, the downside is that all functions and buttons have to be duplicated on the two views, causing heavier memory load for the app. 
+Figure \ref{fig:uml} shows the overall structure of the app. In this Figure, the four frames represents the four screens of the app. Different colours are used to indicate different components of the app.
 \begin{itemize}
-	\item \emph{Menu} is the function that gives users extra options. The extra options on Education View Controller and Game View Controller are slightly different. On Education View Controller, when the user press \emph{Menu}, an \emph{Alert Service} is used, where the options rise up from the bottom of the screen, giving users 4 options: \emph{More About Protein}, \emph{Help}, and \emph{PDB 101}. While \emph{More About Protein} get users directly to the \href{http://rcsb.org}{homepage of RCSB PDB} and \emph{PDB 101} links to the \href{http://pdb101.rcsb.org}{PDB 101 page} on the RCSB website, the \emph{Help} options bring a small pop-up screen layer on top of the AR scene. This pop-up screen contains some guide lines on how to use and navigate around the \emph{Education View} and \emph{Game View} accordingly. 
-Since this is more of a demo-app, the options only directly open link to the RCSB website, however, for future work development, more in-depth options can be integrated to create a more scientific experience for users. 
-	\item \emph{Record} is the function to record the AR screen and then save the recorded video to the phone’s \emph{Camera Roll} if the users choose to do so. In interacting with a protein or create a new one, users might want to record the process as there might be interesting and new findings for future study. When users long press on the \emph{Record} button, the recording process will start. By doing so, there will be a pop-up on screen asking for permission to save the recorded file to the \emph{Camera Roll}. The recording can be stopped simply by tapping on the record button. The app will then bring up a \emph{Preview screen}, allowing users to watch the recorded video before deciding to save or to not save the video. The two actions of \emph{long-pressing} and \emph{tapping} are enabled using the \emph{UIGestureRecognizer} of the ARKit. 
-	\item \emph{Camera} is the function to capture the AR screen into a shot and save the photo to the phone’s \emph{Camera Roll}. When user taps the \emph{Camera} button, the screen will be captured and save immediately. The UIButton flashes colors to indicate that the shot has been taken.  Even though iPhone already has the screen-capture function, by using that, all the buttons on the screen will also be captured, which is not desirable. With this \emph{Camera} function, users can save a photo of just the protein they want. 
+\item \textbf{Purple} represents the buttons displayed on the app's screen.
+\item \textbf{Yellow} represents user action (swipe, press, tap, long press, type).
+\item \textbf{Green} represents the options displayed on the screen after an action was taken.
+\item \textbf{White} represents the actions that the app executes after a button was pressed or an option was chosen.
+\item \textbf{Pink} represents the destination screen or URL the app opens after a button was pressed or an option was chosen. 
+\end{itemize}
+The app starts from "First View Controller" and depends on the chosen buttons, the suitable "View Controller" will be in display. From any "View Controller", the user can always go back to "First View Controller" by pressing on the "Exit" button. The details of each function design will be elaborate in the following part of this section.
+
+\subsection{Utility buttons}
+The utility buttons are the same on both Education View Controller and Game View Controller. This creates coherency throughout the app. However, the downside is that all functions and buttons have to be duplicated on the two views, causing heavier memory load for the app. 
+\begin{itemize}
+	\item \emph{Menu} is the function that gives users extra options. The extra options on Education View Controller and Game View Controller are slightly different. On Education View Controller, when the user press \emph{Menu}, an \emph{Alert Service} is used, where the options rise up from the bottom of the screen, giving the user four options: \emph{More About Protein}, \emph{Help}, and \emph{PDB 101} and \emph{Cancel}. While \emph{More About Protein} get users directly to the \href{http://rcsb.org}{homepage of RCSB PDB} and \emph{PDB 101} links to the \href{http://pdb101.rcsb.org}{PDB 101 page} on the RCSB website, the \emph{Help} options bring a small pop-up screen layer on top of the AR scene. This pop-up screen contains some guidelines on how to use and navigate around the \emph{Education View} and \emph{Game View} respectively. 
+Since this is more akin to a demo-app, the options only directly open link to the RCSB website, however, in future development, more in-depth options can be integrated to create a more scientific experience for the user. 
+	\item \emph{Record} is the function to record the AR screen and then save the recorded video to the phone’s \emph{camera roll} if the users choose to do so. In interacting with a protein or creating a new one, users might want to record the process as there might be interesting and new findings for future study. When users long press on the \emph{Record} button, the recording process will start. By doing so, there will be a pop-up on screen asking for permission to save the recorded file to the \emph{camera roll}. The recording can be stopped simply by tapping on the record button. The app will then bring up a \emph{Preview screen}, allowing users to watch the recorded video before deciding to save the video or not. The two actions of \emph{long-pressing} and \emph{tapping} are enabled using the \emph{UIGestureRecognizer} of the ARKit. 
+	\item \emph{Camera} is the function to capture the AR screen and save the photo to the phone’s \emph{Camera Roll}. When the user taps the \emph{Camera} button, the screen will be captured and saved immediately. The UIButton flashes colours to indicate that the shot has been taken.  Even though iOS already has the screen-capture function, by using that, all the buttons on the screen will also be captured, which is not desirable. With this \emph{Camera} function, users can save a photo of just the protein they want. 
 
 \end{itemize}
 
-\subsection{Solution for getting pdb files from RCSB Server and storing it in CoreData}
+\subsection{Getting pdb files from RCSB Server and storing it in CoreData}
 This is one of the critical functions of the project. It requires the app to be able to download the PDB files, save it and then display it on the screen. 
-In order to achieve the download function, there were many trial-and-error-methods as mentioned in the previous section of using the \emph{HTTP Request POST} and \emph{HTTP Request GET} method. In the process of making the task possible, Alamofire was also considered an option. Alamofire is a Swift-based HTTP networking libray for iOS which simplifies a number of common networking tasks. However, after a few tries, the conclusion was that it was not necessary since the main task of the function is just to download a PDB file. This can be achieved using \emph{URLSession} with \emph{downloadTask()}. The downloaded destination is pre-defined to the internal \emph{Document Directory}. 
-To save the downloaded file’s information to CoreData, firstly, a CoreData model was created with an \emph{Entity} Protein. This \emph{entity} has two attributes of \emph{name} and \emph{location}. Both of these attributes’ type are \emph{String}. If the download process is successful (the file exists, the connection was stable, etc.), at the same time of downloading, a new \emph{NSObject} is created with the two attributes. These will be saved as an \emph{Entity} in the CoreData database. 
-\emph{NSFetchRequestResult} is used to fetch the data in CoreData database back to the app. This process is visualise in Figure \ref{fig:coredata}.
+In order to achieve the download function, there were much trial and error as mentioned in Chapter \ref{ch:analysis2} of using the \emph{HTTP Request POST} and \emph{HTTP Request GET} method. In the process of making the task possible, Alamofire was also considered as an option. Alamofire is a Swift-based HTTP networking library for iOS which simplifies a number of common networking tasks. However, after a few tries, the conclusion was that it was not necessary since the main task of the function is just to download a PDB file. This can be achieved using \emph{URLSession} with \emph{downloadTask()}. The downloaded destination is pre-defined to the internal \emph{Document Directory}. 
+To save the downloaded file’s information to CoreData, firstly, a CoreData model was created with an \emph{Entity} Protein. This \emph{Entity} has two attributes of \emph{name} and \emph{location}. Both attribute types are of \emph{String} type. If the download process is successful (the file exists, the connection was stable, etc.), at the same time of downloading, a new \emph{NSObject} is created with the two attributes. These will be saved as an \emph{Entity} in the CoreData database. 
+\emph{NSFetchRequestResult} is used to fetch the data in CoreData database back to the app. This process is visualised in Figure \ref{fig:coredata}.
 
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[scale=0.7]{images/CoreData.png}
-	\caption{Process of Downloading, Saving and Displaying downloaded protein Model}
+	\caption{Process of downloading, saving and displaying downloaded protein model}
 	\label{fig:coredata}
 \end{figure}
 
 
-\subsection{Solution for visualisation of protein models from pDB files}
-As mentioned, in order to visualise protein models from downloaded pDB files, a converter to convert file type \emph{.pdb} to file type \emph{.dae} must be made. The ideal design is as shown in Figure \ref{fig:coredata}. UCSF Chimera was used in the process of converting, however, it is only compatible with MacOS, not iOS. This is the missing solution from the project. 
+\subsection{Visualisation of protein models from pDB files}
+In order to visualise protein models from downloaded pDB files, a converter to convert file type \emph{.pdb} to file type \emph{.dae} must be made. The ideal design is as shown in Figure \ref{fig:coredata}. UCSF Chimera was used in the process of converting, however, it is only compatible with MacOS, not iOS and therefore could not be implemented into the app.
 
-\subsection{Solution for combining polypeptide chains into a protein}
-As mentioned in the previous section, each polypeptide chain is designed to be referred to as a value in an array. Every time user press on a polypeptide chain’s button, that model of protein is displayed, at the same time, that model’s name is added as a value in the array. After these actions, if the \emph{Clear} button is pressed, not only the models on the screen is deleted but also the values in the array are emptied. On the other hand, if \emph{Try} is pressed, all the values in the array will combined into a new name. First, the screen will be cleared and then the new name protein model will be displayed. Together with this, a text of “Congratulations, you have created a new protein made of …” will also be displayed if the combination is valid. If the combination is not valid, no models will be displayed. The errors will be caught and, on the console, “This model does not exist” will be printed. As for user’s side, a 3D text of “Sorry, this combination cannot be made” will appear on screen. The simplification of the design can be found in Figure \ref{fig:array}.
+\subsection{Combining polypeptide chains into a protein}
+Each polypeptide chain is designed to be referred to as a value in an array. Every time a user presses on a polypeptide chain’s button, that model of protein is displayed, while at the same time, that model’s name is added as a value in the array. After these actions, if the \emph{Clear} button is pressed, not only are the models on the screen deleted but also the values in the array are emptied. On the other hand, if \emph{Try} is pressed, all the values in the array will combined into a new name. First, the screen will be cleared and then the new name protein model will be displayed. Together with this, a text of “Congratulations, you have created a new protein made of …” will also be displayed if the combination is valid. If the combination is invalid, no models will be displayed. The errors will be caught and, on the console, “This model does not exist” will be printed. On the user's end, a 3D text of “Sorry, this combination cannot be made” will appear on screen. The simplification of the design can be found in Figure \ref{fig:array}.
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[width=\textwidth]{images/array.png}
@@ -98,21 +109,21 @@ As mentioned in the previous section, each polypeptide chain is designed to be r
 \end{figure}
 
 
-\section{User interface (UI) Design}
+\section{User Interface (UI) Design}
 \subsection{Introduction to user interface}
-In order to ask the computer/smart devices to do anything, users need to communicate with them. The way users (human) can communicate with the product (software, app, website) is through interacting with the user interface (UI) of that product. The purpose of a UI is to enable users to control a computer or a device they are interacting with, by giving orders and receiving feedbacks in a chain to complete a task. 
-The user interface of any software or website does not only create the first impression to the products which makes user decide instantly if they want to use the product, but it also plays a big role in keeping the users. With a complicated or not efficient UI, users would not want to keep using the product because it takes memory efforts. Therefore, an UI should be \emph{intuitive} – be kept simple where no training should be needed to operate, \emph{efficient} – functions are precise and on point, and \emph{user-friendly} (User Interface, n.d)
-Currently, there are three formats of user interfaces (What is User Interface Design, n.d.):
+In order to appropriate the tools of computers and smart devices, users need to communicate with them. The way users can communicate with the product (software, app, website) is through interacting with the user interface (UI) of that product. The purpose of a UI is to enable users to control a computer or a device they are interacting with, by giving commands and receiving feedback in a chain to complete a task. 
+The user interface of any computer-based product does not only create first impressions which convinces users to continue to use that product, it also plays an important role in maintaining the interest of the users. With a complicated or inefficient UI, users would not want to keep using the product because it requires too much cognitive effort. Therefore, a UI should be \emph{intuitive} – be kept simple where no training should be needed to operate, and be \emph{efficient} – functions are precise, on point, and \emph{user-friendly} \parencite{noauthor_what_nodate}.
+Currently, there are three formats of user interfaces \parencite{noauthor_what_nodate}:
 \begin{itemize}
-\item \textbf{Graphical User Interfaces (GUIs)} – interactions happens through visual representations on digital control panels such as a computer desktop, a website interface.
-\item \textbf{Voice-controlled interfaces(VUIs)} – interactions happens through voice representation such as Siri, Google Home or Alexa.
-\item \textbf{Gesture-based interfaces} – interactions happen through physical motions in 3D spaces in VR games.
+\item \textbf{Graphical User Interfaces (GUIs)} – interactions happen through visual representations on digital control panels such as a computer desktop, or a website interface.
+\item \textbf{Voice-controlled interfaces(VUIs)} – interactions happen through voice representation such as Siri, Google Home or Alexa.
+\item \textbf{Gesture-based interfaces} – interactions happen through physical motions in 3D spaces, such as in VR games.
 \end{itemize}
 The UI of ProteinAR is categorized as a GUI since users interact with the device through the visual representations of functions on a phone screen. 
 
 \subsection{ProteinAR’s user interface design}
 \subsubsection{Logo design}
-The logo for the app was designed simple with just a letter P, short for Protein. This was created in GIMP and then exported to various sizes to fit to maintain the resolution in different views (refer to Figure \ref{fig:appicon}. Other designs with symbols or words were considered but sticking to the “Simplicity is the best” approach, the logo ended up with only one simple letter and two colours, makes it easy to remember for users. This is not a new approach. Simple logo design with only one letter can be found with popular apps such as Facebook app or Google app. 
+The logo for the app was designed simple with just a letter P. This was created in GIMP and then exported to various sizes to maintain the resolution in different views (refer to Figure \ref{fig:appicon}). Other designs with symbols or words were considered but sticking to the “simplicity is the best” approach, the logo ended up with only one simple letter and two colours, making it easy to remember for users. This is not a new approach. Simple logo design with only one letter can be found amongst popular apps such as Facebook app or Google app. 
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[scale=0.65]{images/appicon.png}
@@ -121,7 +132,7 @@ The logo for the app was designed simple with just a letter P, short for Protein
 \end{figure}
 
 \subsubsection{Colour scheme}
-The logo, to the flash screen, the buttons and popup view elements in the app follow the same colour scheme. In ProteinAR, analogous colour scheme was chosen as shown in Figure \ref{fig:UIFinal}. 
+The logo, the flash screen, the buttons and popup view elements in the app all follow the same colour scheme. In ProteinAR, an analogous colour scheme was chosen as shown in Figure \ref{fig:UIFinal}. 
 \begin{figure}[hbt!]
 	\centering
 	\includegraphics[width=\textwidth]{images/UIFinal.png}
@@ -129,7 +140,7 @@ The logo, to the flash screen, the buttons and popup view elements in the app fo
 	\label{fig:UIFinal}
 \end{figure}
 
-This is one of the traditional colour palettes which is the combination of related colours that are placed next to each other on the colour wheel. Analogous is known to be one of the most used colour pallets because they are harmonious and pleasing to the eyes. ProteinAR uses two colours from the Pinks and Mauves colour sections as shown in Figure \ref{fig:colorwheel}. 
+This is one of the traditional colour palettes which is the combination of related colours that are placed next to each other on the colour wheel. Analogous is known to be one of the most-used colour pallets because they are harmonious and pleasing to the eyes. ProteinAR uses two colours from the Pinks and Mauves colour sections as shown in Figure \ref{fig:colorwheel}. 
 \begin{figure}[hbt!]
 	\centering
 	\includegraphics[scale=0.6]{images/colorwheel.png}
@@ -139,11 +150,11 @@ This is one of the traditional colour palettes which is the combination of relat
 
 
 \subsubsection{Button design}
-As for the top four buttons of the Education and Mini-game screen, the main colour scheme is kept. As the first three buttons generate actions, they are in the same mauves colour and the exit one is in pink, which create the slight distinction of the functions. The two main function button of \emph{Try} and \emph{Clear} also follow the main colour scheme. 
+As for the utility buttons of the Education and Mini-game screen, the main colour scheme is maintained. As the first three buttons generate actions, they are in the same mauves colour and the exit button is in pink, which creates the slight distinction of the function. The two main function buttons of \emph{Try} and \emph{Clear} also follow the main colour scheme. 
 
-On the top four buttons, button icons are used instead of button labels. These icons are familiar to mobile app users, thus, makes the design more concise and easier to navigate. 
+In the utility buttons, button icons are used instead of button labels. These icons are familiar to mobile app users, this makes the design more concise and easier to navigate. 
 
-(1) Menu button: There are many styles of menu buttons as shown in Figure \ref{fig:menubuttons}. Each menu buttons generate a type of menu display for example, the \emph{hamburger icon} opens a navigation drawers to more actions, the \emph{kebab icon} are commonly seen on Android operating system, normally open a smaller inline menu. In this project, the chosen icon for \emph{Menu} button is the \emph{Veggie burger} style as it is common for this style to be placed on the top left of the screen, and generate more actions but less than a \emph{hamburger icon}.
+(1) Menu button: there are many styles of menu buttons as shown in Figure \ref{fig:menubuttons}. Each menu buttons generates a type of menu display. For example, the \emph{hamburger icon} opens a navigation drawer to more actions; the \emph{kebab icon}, commonly seen on Android operating system, normally opens a smaller inline menu. In this project, the chosen icon for the \emph{Menu} button is the \emph{Veggie burger} style as it is common for this style to be placed on the top left of the screen, and it symbolises generating more actions but less actions than a \emph{hamburger icon}.
 \begin{figure}[hbt!]
 	\centering
 	\includegraphics[width=\textwidth]{images/menubuttons.png}
@@ -151,9 +162,9 @@ On the top four buttons, button icons are used instead of button labels. These i
 	\label{fig:menubuttons}
 \end{figure}
 
-(2) Record and Camera button: Record button accepts two types of actions: long press and tap. Long press generates the action of recording the screen and tap ends it. Long press action also changes the colour of the button to red, which is commonly associate with recording symbol colour. Tap brings it back to its original colour, symbolizes the end of the recording action. As for the camera button, the colour only flashes, implies the act of picture taking has been done. 
+(2) Record and Camera button: The record button accepts two types of actions: long press and tap. Long press generates the action of recording the screen and tap ends it. The long press action also changes the colour of the button to red, which is commonly associated with recording. Tap brings it back to its original colour, which symbolises the end of the recording action. As for the camera button, the colour only flashes, implying the act of picture taking has been done. 
 
-As mentioned, the buttons in ProteinAR mainly follows the colour scheme of Pinks-Mauves. However, the four buttons to add polypeptide chains are the exceptions. These four buttons uses images as the buttons and to make it easy for users, they are labelled with their names. The designs of the buttons are   inherrited from Tianshu Xu’s 2019 Master project \parencite{xu_interactive_2019} and the label colours were chosen to be matched with the polypeptides’ colours. Since this is a mini-game, the colourful elements will make it look more appealing to users. 
+As mentioned, the buttons in ProteinAR mainly follow the colour scheme of Pinks-Mauves. However, the four buttons to add polypeptide chains are the exceptions. These four buttons use images as the buttons and to increase usability for users, they are labelled with their names. The designs of the buttons are inherited from Tianshu Xu’s 2019 Master project \parencite{xu_interactive_2019} and the label colours were chosen to be matched with the colours of the polypeptides. Since this is a mini-game, the colourful elements are chosen for visual appeal and clarity. 
 \begin{figure}[hbt!]
 	\centering
 	\includegraphics[scale=0.7]{images/polybuttons.png}
@@ -162,8 +173,16 @@ As mentioned, the buttons in ProteinAR mainly follows the colour scheme of Pinks
 \end{figure}
 
 \section{Core Data Design}
-In ProteinAR, Core Data is designed with only two \emph{Entity} of \emph{name} and \emph{location}. Core Data only stores the information of the location path, which is in the \emph{Document Directory}, not the file itself. When the data is called, information stores in the attribute \emph{location} of Core Data simply acts as a \emph{String} value to concatenate with the file's name and extension to fetch the file that are stored in the \emph{Document Directory}. 
-With this current functions of ProteinAR, implementing Core Data is not necessary as document path can be directly called into the displaying function. The reason Core Data was used is for future work, when more information of a Protein (protein parameters) needed to be stored. 
+In ProteinAR, Core Data is simply designed with only one \emph{Entity} called Protein. This \emph{Entity} has two \emph{attributes}: \emph{name} and \emph{location} of type \emph{String}. In the current design of the app, Core Data only stores two information in a Protein \emph{Entity}: the name of downloaded protein and its file path in the \emph{Document Directory}. When the data is called, information stored in the attribute \emph{location} of Core Data simply act as a \emph{String} value to concatenate with the file's name and extension to fetch the file that are stored in the \emph{Document Directory}. 
+Figure \ref{fig:datamodel} shows the \emph{Entity} and \emph{attributes} in the data model in Core Data.
+ \begin{figure}[!htp]
+	\centering
+	\includegraphics[width=\textwidth]{images/datamodel.png}
+	\caption{Core Data Entity and attributes}
+	\label{fig:datamodel}
+\end{figure}
+
+The details on implementation of Core Data can be found in Figure \ref{fig:displayreal} with explanation in Chapter \ref{ch:implementation}. As explain in Chapter \ref{ch:analysis2}, with the current implementations of ProteinAR, integrating Core Data is unnecessary. Document path can be directly called into the displaying function using \emph{File Manager}. The reason Core Data was used is for future work, when more protein data may need to be stored. 
 
 
 

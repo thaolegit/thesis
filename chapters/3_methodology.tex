@@ -1,35 +1,35 @@
 \chapter{Methodology}
 \label{ch:methodology}
 
-ProteinAR is an app designed to run on an iOS system. It was written in Swift 5, on Xcode. The dataset in which protein files are downloaded from is directly connected to RCSB PDB. There were some other sources of protein data websites such as \href{https://web.expasy.org/protparam/} {Protein Parameter} or \href{https://zhanglab.ccmb.med.umich.edu/I-TASSER/}{Protein Structure Function and Prediction I-TASSER Server} were used to test out the application during the process of making.
-The app only runs fully on an iOS device, not a built-in simulator due to the requirement to use the camera to achieve the AR function.
+This chapter introduces the software, language, and framework that were used to develop ProteinAR.
 
-\section{Softwares used}
+\section{Software}
 	\subsection{Xcode}
-Xcode is an integrated development environment (IDE) for MacOS. It was first released in 2003, enables developers to create apps for Apple platforms. Xcode supports sources codes for various programming languages including C, C++, Objective-C, Swift, etc. Xcode has a built-in Interface Builder to construct graphical interfaces. 
-During the making process, Xcode has a few version upgrades. The latest update was Xcode version 12. With every version updates, there are few changes in codes and functions as the main goal is to build more compact and user-friendly interfaces.
+Xcode is an integrated development environment (IDE) for MacOS. It was first released in 2003, and enables developers to create apps for Apple platforms. Xcode supports sources codes for various programming languages including C, C++, Objective-C, Swift, etc. Xcode has a built-in \emph{Interface Builder} to construct graphical interfaces. 
+During the project's development process, Xcode has had a few version updates. The latest update was Xcode version 12. 
 		\subsubsection{Advantages of using Xcode}
-ProteinAR is written on Swift, a native language for iOS apps, released by Apple and since Xcode is the native IDE of Apple, the compatibility is perfect, making the app and tests run faster and less errors. Xcode is a highly intuitive IDE where there is the main storyboard interface, visualising the designs elements of an app, with various built-in function to customise the design, from background colours to framing and a built-in library for easy adding and changing elements such as icons, pictures, text labels, etc (Introducing Xcode 12, n.d).
+ProteinAR is written in Swift, a native language for iOS apps, released by Apple. Since Xcode is the native IDE of Apple, the compatibility is ideal, making the app and tests run faster and less error prone. Xcode is a highly intuitive IDE with a main storyboard interface, visualising the designs elements of an app as well as various built-in functions to customise the design, from background colours to framing and a built-in library for easy adding, and changing elements such as icons, pictures, text labels, and more \parencite{noauthor_xcode_nodate}.
+
 		\subsubsection{Disadvantages of using Xcode}
-ProteinAR used the built-in ARKit package. As this requires camera accessibility, tests cannot be run on the built-in iPhone simulators but instead, a real iPhone device. This creates a great disadvantages as iPhone iOS version keeps on updating, and thus, being incompatible with Xcode if Xcode is not the up-to-date version, which means MacOS should always stay as the latest version. Xcode’s disk size is large, thus, downloading takes a great amount of disk space and time. Moreover, in some updates, the packages supports change, meaning there might be some errors that needed to be fixed with the newer version. 
+ProteinAR uses the built-in ARKit framework. As this requires camera accessibility, tests cannot be run on the built-in iPhone simulators but instead, a real iPhone device. This creates a significant disadvantage due to persistent iOS updates which can cause compatibility issues between iOS and Xcode. Moreover, in some updates, the supporting packages change, causing compatibility issues that need to resolved. 
 
 	\subsection{UCSF Chimera}
-UCSF Chimera (or Chimera) is developed by the University of California. This program allows interactive visualisation of protein data. Once a PDB file is downloaded, Chimera can open the files in a 3D form and allow users to export the files in various types such as \emph{.dae, .x3d, .obj}.
+UCSF Chimera (or Chimera) is developed by the University of California. This program allows interactive visualisation of protein data. Once a PDB file is downloaded, Chimera can open the files in a 3D form and allow users to export the files in various types such as \emph{.dae}, \emph{.x3d}, or \emph{.obj}.
 	
-	\section{Language used: Swift}
-Swift is a powerful programming language for Apple platform. Apple released Swift from 2014, taking ideas from various other languages (Rust, Haskell, Ruby, Python, C, etc.,) but it bares most similarities to Objective-C  \parencite{noauthor_swift_nodate}. 
+	\section{Swift}
+Swift is a powerful programming language for Apple platforms. Apple released Swift in 2014, taking ideas from various other languages (Rust, Haskell, Ruby, Python, C, etc.,), but it bares most similarities to Objective-C  \parencite{noauthor_swift_nodate}. 
 	\subsubsection{Advantages of using Swift}
-Swift was always considered as one of the \emph{Most Loved Programming Language} on Stack Overflow for many years as it is highly interactive, with concise and expressive syntax which runs fast. There are several improvements comparing to other languages: there is no need for semi-colons, UTF-8 based encoding is used, Strings are Unicode-correct, etc. It is also designed for safety as by default, Swift objects can never be \emph{nil}. As a successor to C and Objective-C, Swift includes low-level primitives such as types, flow control and operators as well as object-oriented features such as classes, protocols, and generics \parencite{noauthor_swift_nodate}. Overall, Swift is a simple and straight-to-the-point coding language.
+Swift has been considered one of the most loved programming languages on Stack Overflow for many years as it is highly interactive, with concise and expressive syntax which runs fast. There are several improvements compared to other languages: there is no need for semi-colons, UTF-8 based encoding is used, strings are formatted in unicode, etc. It is also designed for safety as by default, Swift objects can never be \emph{nil}. As a successor to C and Objective-C, Swift includes low-level primitives such as types, flow control and operators as well as object-oriented features such as classes, protocols, and generics \parencite{noauthor_swift_nodate}. Overall, Swift is a simple and to-the-point coding language.
 	\subsubsection{Disadvantages of using Swift}
-As mentioned above, there were a few version updates of Xcode during the programming process. Swift is a new language, thus, are being changed constantly to reach perfection. Therefore, the syntax and packages might change from times to times. It is relatively new, therefore, solutions to coding problems might be too new to have an answer, which was the most challenging in using Swift as the main coding language. 
+As mentioned above, there were a few version updates of Xcode during the programming process. Swift being a relatively new language is in a state of regular fluctuation meaning changes to sytax and package names are relatively common. An additional difficulty in coding in such a young language is that problems might be too new to have a solution, which is the most challenging aspect of Swift.
 
 \section{ARKit API}
-The technology to develop Augmented Reality was ready for mobile devices, however, it is too complex as algorithms for detecting objects in real world and displaying virtual object need to be created, and these are very complex for developers. This is why Apple released ARKit in 2017 as a software framework, making developing an AR iOS app so much easier. It is an API that supplies numerous and powerful features to handle the process of building Augmented Reality apps and games for iOS devices. 
+The technology to develop Augmented Reality was ready for mobile devices, however, algorithms for detecting objects in real world and displaying virtual objects are highly complex. This is why Apple released ARKit in 2017 as a software framework, making developing an AR iOS app significantly easier. It is an API that supplies numerous and powerful features to handle the process of building Augmented Reality apps and games for iOS devices. 
 
-Apple has been acquiring many AR companies, thus, the ARKit is built on all of these acquisitions. One of the major ones was the German company Metaio, which IKEA initially used to let customers display IKEA furnitures in their own home. Ferrari also used Metaio’s technology to allow customer changing colours of cars in showroom, and looking at car’s internal features. In 2017, Apple acquired SensoMotoric Instrument, a company specialized in eye tracking technology to use in AR. Other companies that specialized in other parts of AR technology are being acquired by Apples throughout the year. By doing this, the features of ARKit on iOS devices are frequently newly added and updated. ARKit is continuing to grow, making the creating of AR apps easier than ever \parencite{wang_beginning_2018}.
+Apple has been acquiring many AR companies, thus, the ARKit is built on all of these acquisitions. One of the major ones was the German company Metaio, which IKEA initially used to let customers display IKEA furniture in their own homes. Ferrari also used Metaio’s technology to allow customer changing colours of cars in showrooms, and view a car’s internal features. In 2017, Apple acquired SensoMotoric Instrument, a company specialized in eye tracking technology to use in AR. Other companies that specialized in other parts of AR technology are being acquired by Apple throughout the year. By doing this, the features of ARKit on iOS devices are frequently newly added and updated. ARKit is continuing to grow, making the creation of AR apps easier than ever \parencite{wang_beginning_2018}.
 
 \subsection{Basic understanding of the ARKit}
-There are three layers that works simultaneously in ARKit \parencite{noauthor_introduction_nodate-1} as shown in Figure \ref{fig:3Layers}.
+There are three layers that work simultaneously in ARKit \parencite{noauthor_introduction_nodate-1} as shown in Figure \ref{fig:3Layers}.
 \begin{figure}[!htp]
 	\centering
 	\includegraphics[width=\textwidth]{images/3Layers.jpeg}
@@ -37,29 +37,30 @@ There are three layers that works simultaneously in ARKit \parencite{noauthor_in
 	\label{fig:3Layers}
 \end{figure}
 
-\textbf{Tracking} is the key function of ARKit. Without ARKit, it would be very complex for developers to write algorithm to track a device’s position, location and orientation in the real world.
-\textbf{Scene Understanding} is the layer that allows ARKit to analyse the environment presented by the camera’s view to adjust and provide information in order to put place a virtual object on it. 
+\textbf{Tracking} is the key function of ARKit. Without ARKit, it would be very complex for developers to write algorithms to track a device’s position, location, and orientation in the real world.
+\textbf{Scene Understanding} is the layer that allows ARKit to analyse the environment presented by the camera’s view to adjust and provide information in order to place a virtual object in it. 
 \textbf{Rendering} is the process where ARKIt handles the 3D models to put them in a scene such as SceneKit, Metal, RealityKit.
 
-\subsection{Language and System Requirement for ARKit}
-As mentioned in this thesis, since augmented reality requires access to cameras and high resolution display, ARKit apps can only be run on modern iOS devices: 
+\subsection{Language and System Requirements for ARKit}
+As previously mentioned, since augmented reality requires access to a high resolution display and camera, ARKit apps can only run on the following iOS devices: 
 \begin{itemize}
 	\item iPhone SE, iPhone 6s and later
 	\item iPad 2017 and later
-	\item All iPad Pro models
+	\item all iPad Pro models
 \end{itemize}
-To develop an iOS app, Xcode is the best IDE to be used as it also has the built-in simulator program to mimic different iPhone and iPad models. However, with ARKit integrated, the app cannot be tested on the simulators but has to be on a real iOS devices listed above, connecting through its USB cable.
-Both Swift and Objective-C can be used to create an ARKit app. This project chose Swift as the language because it is much easier to learn and run faster. 
-ARKit framework allows developers to be able to focus on the features of the app rather than on the AR required technologies such as detecting, displaying and tracking virtual object in the real world. 
+To develop an iOS app, Xcode is the best IDE to use as it also has the built-in simulator program to mimic different iPhone and iPad models. However, with ARKit integrated, the app cannot be tested on the simulators but instead has to be tested on a real iOS device from the list above via USB connection.
+Both Swift and Objective-C can be used to create an ARKit app. This project chose Swift as the language for its ease of use and speed.
+The ARKit framework allows developers to be able to focus on the features of the app rather than on the AR required technologies such as detecting, displaying and tracking virtual object in the real world. 
 
 
-\section{Database used: RCSB}
-ProteinAR downloads PDB files directly from \href{https://www.rcsb.org/}{RCSB}. 
-
-PDB (Protein Data Bank) file format provides a standard representation for macromolecular structure data. These are obtained from X-ray diffraction and NMR studies (About RCSB PDB, n.d).
-RCSB was the first open access digital data resource for Protein Data Bank. It provides access to 3D structure data for all biological molecules. RCSB is a global archive where PDB data are available for free \parencite{noauthor_rcsb_nodate}. The data acquired on RCSB are data submitted by biologists and biochemists around the world. On the \href{https://www.rcsb.org/}{website}, users can search for any protein name and the 3D structure will be displayed and can be interacted with. Information about the protein will also be displayed, and PDB files can be simply downloaded.
+\section{RCSB Protein Data Bank}
+ProteinAR downloads PDB files directly from \href{https://www.rcsb.org/}{RCSB}. PDB (Protein Data Bank) file format provides a standard representation for macromolecular structure data. These are obtained from X-ray diffraction and NMR studies \parencite{noauthor_rcsb_nodate}.
+RCSB was the first open access digital data resource for Protein Data Bank. It provides access to 3D structural data for all biological molecules. RCSB is a global archive where PDB data are available for free \parencite{noauthor_rcsb_nodate}. The data acquired on RCSB are data submitted by biologists and biochemists around the world. On the \href{https://www.rcsb.org/}{website}, users can search for any protein name and the 3D structure will be displayed and allow interaction. Information about the protein will also be displayed, and PDB files can be simply downloaded.
 During the process of making ProteinAR, some other sources for protein data were used including \href{ https://zhanglab.ccmb.med.umich.edu/I-TASSER/}I-TASSER and \href{https://web.expasy.org/protparam/} {ProtParam}. 
-ProtParam displays all the parameters for protein once the amino acid sequence is entered. ProtParam is a simple designed encoded website, allowing the GET method to get information from the server to the app easier, however, the PDB files contains 3D structure information of the protein is not available, therefore, it was used as a test to see if the POST and GET method work well in the app for similar website. 
-I-TASSER predicts protein structure and function after users enter the sequence of amino acids. Similar with RCSB, I-TASSER allow free downloading of the PDB files, where the structure of protein is already created in 3D and can be opened using UCSF Chimera. The cons of using I-TASSER is that the data cannot be downloaded in real-time because user need to enter their emails into the server and get the PDB files back a few hours later. 
-As the goal of ProteinAR is to visualize protein structures and display them instantly, RCSB was chosen for the database as it fits the goal.  
+ProtParam is a basic website with only string type of data, allowing the GET method to get information from the server to the app easily. However, the PDB files containing 3D structural information of the protein were not available, so it was used as a test to discover if the POST and GET method functioned correctly in the app.
+I-TASSER predicts protein structure and function after users enter the sequence of amino acids. Similar to RCSB, I-TASSER allows free downloading of PDB files where the structure of protein is already created in 3D and can be opened using UCSF Chimera. The cons of using I-TASSER is that the data cannot be downloaded in real-time because users need to enter their emails into the server and receive the PDB files a few hours later. 
+As the goal of ProteinAR is to visualise protein structures and display them instantly, RCSB was chosen for the database as it fits said goal.  
 
+\section{Summary}
+ProteinAR is an iOS app. It was written in Swift 5 using Xcode, using ARKit API. The dataset in which protein files are downloaded from is directly connected to RCSB PDB. Other sources of protein data websites were used, such as \href{https://web.expasy.org/protparam/} {Protein Parameter}, and \href{https://zhanglab.ccmb.med.umich.edu/I-TASSER/}{Protein Structure Function and Prediction I-TASSER Server}, in order to test the application during development.
+The app only display full functionality on an iOS device, not a built-in simulator due to the requirement to use the camera to achieve the AR function.
